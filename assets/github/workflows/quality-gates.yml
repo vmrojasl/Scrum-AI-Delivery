@@ -1,0 +1,72 @@
+# Quality gates automáticos — Scrum-AI Delivery
+# Issue → Branch → Pull Request → [Lint/Tipado → Tests → QA/Visual → Seguridad → Build → Deploy] → Merge → Release
+# Ajuste los comandos marcados con TODO al stack del proyecto (definido en Sprint 0 / CONSTRAINTS.md).
+name: quality-gates
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  lint:
+    name: Lint / Tipado
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Lint y tipado
+        run: echo "TODO: npm ci && npm run lint && npm run typecheck  (o ruff/mypy, etc.)"
+
+  tests:
+    name: Tests
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pruebas unitarias e integración
+        run: echo "TODO: npm test -- --coverage  (o pytest --cov)"
+
+  qa-visual:
+    name: QA / Visual
+    needs: tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Regresión visual / e2e en navegadores
+        run: echo "TODO: npx playwright test  (escritorio, tablet, móvil)"
+
+  security:
+    name: Seguridad
+    needs: tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Análisis de dependencias y SAST
+        run: echo "TODO: npm audit --audit-level=critical / semgrep / CodeQL"
+      # Una vulnerabilidad crítica (CVSS 9.0–10) debe hacer fallar este job: es un control crítico binario.
+
+  build:
+    name: Build
+    needs: [qa-visual, security]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compilación
+        run: echo "TODO: npm run build / docker build"
+
+  deploy-test:
+    name: Deploy a ambiente de pruebas
+    needs: build
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    environment: pruebas
+    steps:
+      - run: echo "TODO: despliegue a ambiente de pruebas (UAT)"
+
+# El despliegue a producción (G6) usa un environment 'produccion' con revisores requeridos
+# (Product Owner + Operaciones/TI): los agentes no despliegan por iniciativa propia.

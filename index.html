@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scrum-AI Delivery</title>
+<meta name="description" content="Skill para Claude: metodología Scrum-AI Delivery con quality gates y aprobación humana.">
+<style>
+  :root { --bg:#fbfaf7; --fg:#1d1c1a; --muted:#5f5b53; --line:#e3dfd6; --accent:#1f5f8b; --card:#ffffff; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#141413; --fg:#ecebe6; --muted:#a29e94; --line:#2c2b28; --accent:#7db7e0; --card:#1b1b19; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 56px 16px 72px; }
+  h1 { font-size: clamp(2rem, 5vw, 2.8rem); line-height:1.1; margin:0 0 12px; letter-spacing:-0.02em; }
+  .lead { font-size:1.15rem; color:var(--muted); margin:0 0 32px; }
+  h2 { font-size:1.1rem; margin:40px 0 12px; }
+  ol, ul { padding-left: 1.2em; }
+  li { margin: 4px 0; }
+  a { color: var(--accent); }
+  .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:12px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px 16px; text-decoration:none; color:inherit; }
+  .card strong { display:block; color:var(--accent); }
+  .card span { color:var(--muted); font-size:.92rem; }
+  pre { background:var(--card); border:1px solid var(--line); border-radius:8px; padding:12px; overflow-x:auto; font-size:.88rem; }
+  footer { margin-top:48px; color:var(--muted); font-size:.9rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Scrum-AI Delivery</h1>
+  <p class="lead">Del requisito al release, con evidencia en cada paso. Skill para Claude que combina Scrum, ingeniería asistida por IA, Spec-Driven Development y Quality Gates con aprobación humana.</p>
+
+  <h2>Principios</h2>
+  <ol>
+    <li>Los agentes de IA ejecutan, no aprueban: las decisiones críticas son humanas.</li>
+    <li>Nada avanza sin evidencia verificable en cada gate (G1–G6).</li>
+    <li>Diseño antes del código: historia → flujo → mockup → plan técnico → código.</li>
+    <li>Scrum, especificación y vibecoding controlado funcionan juntos, no por separado.</li>
+  </ol>
+
+  <h2>Contenido</h2>
+  <div class="grid">
+    <a class="card" href="https://github.com/vmrojasl/Scrum-AI-Delivery/blob/main/SKILL.md"><strong>SKILL.md</strong><span>Definición e instrucciones del skill</span></a>
+    <a class="card" href="https://github.com/vmrojasl/Scrum-AI-Delivery/blob/main/references/metodologia.md"><strong>Metodología</strong><span>Marco general y roadmap S0–S6</span></a>
+    <a class="card" href="https://github.com/vmrojasl/Scrum-AI-Delivery/blob/main/references/sprint0.md"><strong>Sprint 0</strong><span>Auditoría del código existente</span></a>
+    <a class="card" href="https://github.com/vmrojasl/Scrum-AI-Delivery/blob/main/references/ciclo-sprint.md"><strong>Ciclo de sprint</strong><span>Los 11 pasos por historia</span></a>
+    <a class="card" href="https://github.com/vmrojasl/Scrum-AI-Delivery/blob/main/references/quality-gates.md"><strong>Quality gates</strong><span>G1–G6, DoR/DoD y scorecard</span></a>
+    <a class="card" href="https://github.com/vmrojasl/Scrum-AI-Delivery/blob/main/references/vibecoding.md"><strong>Vibecoding controlado</strong><span>Reglas para desarrollar con IA</span></a>
+    <a class="card" href="https://github.com/vmrojasl/Scrum-AI-Delivery/blob/main/references/github.md"><strong>GitHub</strong><span>Trazabilidad con issues y PR</span></a>
+    <a class="card" href="https://github.com/vmrojasl/Scrum-AI-Delivery/blob/main/references/capacidades-externas.md"><strong>Capacidades externas</strong><span>Skills, MCP y RAG por fase</span></a>
+    <a class="card" href="https://github.com/vmrojasl/Scrum-AI-Delivery/tree/main/assets/templates"><strong>Plantillas</strong><span>Visión, historias, ADR, sprint, RACI…</span></a>
+    <a class="card" href="https://github.com/vmrojasl/Scrum-AI-Delivery/tree/main/scripts"><strong>Scripts</strong><span>sai.py y rag.py</span></a>
+  </div>
+
+  <h2>Instalación en Claude Code</h2>
+  <pre><code>git clone https://github.com/vmrojasl/Scrum-AI-Delivery.git ~/.claude/skills/scrum-ai-delivery</code></pre>
+
+  <footer>Código fuente: <a href="https://github.com/vmrojasl/Scrum-AI-Delivery">github.com/vmrojasl/Scrum-AI-Delivery</a></footer>
+</main>
+</body>
+</html>

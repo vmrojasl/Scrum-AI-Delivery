@@ -1,0 +1,7 @@
+interface:
+  display_name: "Scrum-AI Delivery"
+  short_description: "Metodología Scrum-AI con gates y aprobación humana"
+  default_prompt: "Usa $scrum-ai-delivery para revisar el estado del proyecto y proponer el siguiente paso de la metodología."
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,7 @@
+interface:
+  display_name: "Diseño web integral"
+  short_description: "Diagnóstico, diseño, validación y aprobación web"
+  default_prompt: "Usa $diseno-web-integral para diagnosticar, rediseñar y validar mi sitio web antes de aprobarlo."
+
+policy:
+  allow_implicit_invocation: true

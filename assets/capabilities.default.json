@@ -1,0 +1,89 @@
+{
+  "_nota": "Registro de capacidades externas del proyecto. Estados: por_configurar (no instalado o sin fuente) → pendiente_revision (detectado o descargado, sin revisar) → aprobado (revisado por una persona) | deshabilitado. Solo se usan las 'aprobado'. 'rol': principal = la que se usa primero en la fase; complementario = se suma cuando el caso lo pide (stack, UI, seguridad). Edite con: python sai.py cap ...",
+  "paquetes": {
+    "agent-skills": {
+      "nombre": "Agent Skills (Addy Osmani)",
+      "repositorio": "https://github.com/addyosmani/agent-skills",
+      "licencia": "MIT",
+      "plugin": "agent-skills@addy-agent-skills",
+      "instalacion": {"tipo": "plugin", "marketplace": "addyosmani/agent-skills", "repo": "addyosmani/agent-skills", "ruta_skills": "skills"},
+      "instalar": "python sai.py cap install --pack agent-skills",
+      "enfoque": "Ciclo de ingeniería spec → plan → build → verify → review → ship. Es el paquete principal de proceso."
+    },
+    "ecc": {
+      "nombre": "ECC — Everything Claude Code (Affaan Mustafa)",
+      "repositorio": "https://github.com/affaan-m/ECC",
+      "licencia": "MIT",
+      "plugin": "ecc@ecc",
+      "instalacion": {"tipo": "plugin", "marketplace": "affaan-m/ECC", "repo": "affaan-m/ECC", "ruta_skills": "skills",
+                      "aviso": "Instala hooks que corren en cada herramienta y sesión (perfil 'standard'); ajústelos con /plugin configure ecc@ecc"},
+      "instalar": "python sai.py cap install --pack ecc",
+      "enfoque": "Patrones por stack, verificación, E2E, seguridad, ADR y despliegue. Complementa a agent-skills."
+    },
+    "codex": {
+      "nombre": "Codex para Claude Code (OpenAI)",
+      "repositorio": "https://github.com/openai/codex-plugin-cc",
+      "licencia": "Apache-2.0",
+      "plugin": "codex@openai-codex",
+      "solo_harness": "claude",
+      "instalacion": {"tipo": "plugin", "marketplace": "openai/codex-plugin-cc", "repo": "openai/codex-plugin-cc", "solo_plugin": true,
+                      "cli": {"comando": "codex", "instalar": ["npm", "install", "-g", "@openai/codex"], "login": "codex login"},
+                      "aviso": "Usa una cuenta de OpenAI/ChatGPT; el código revisado se envía a Codex"},
+      "instalar": "python sai.py cap install --pack codex",
+      "enfoque": "Revisión cruzada: un segundo modelo (Codex) revisa los resultados de Claude en los puntos estratégicos (G1, DoR, G4, G6). Solo aplica cuando el skill corre en Claude Code."
+    },
+    "diseno-web-integral": {
+      "nombre": "Diseño web integral",
+      "repositorio": null,
+      "licencia": "Propietario (incluido en este skill)",
+      "plugin": null,
+      "instalacion": {"tipo": "incluido", "ruta": "vendor/diseno-web-integral",
+                      "dependencias": [
+                        {"zip": "impeccable-main", "repo": "pbakaus/impeccable", "licencia": "Apache-2.0", "verifica": "impeccable"},
+                        {"zip": "taste-skill-main", "repo": "Leonxlnx/taste-skill", "licencia": "MIT", "verifica": "design-taste-frontend"},
+                        {"zip": "ui-ux-pro-max-skill-main", "repo": "nextlevelbuilder/ui-ux-pro-max-skill", "licencia": "MIT", "verifica": "ui-ux-pro-max"},
+                        {"zip": "skills-main", "repo": "emilkowalski/skills", "licencia": "MIT", "verifica": "emil-design-eng"}
+                      ]},
+      "instalar": "python sai.py cap install --pack diseno-web-integral",
+      "enfoque": "Orquesta diagnóstico → diseño → validación medida → aprobación de UI con impeccable, design-taste-frontend, ui-ux-pro-max y otras. Es el paquete principal del estado 'mockup' (G3)."
+    }
+  },
+  "skills": [
+    {"id": "as-interview-me", "paquete": "agent-skills", "nombre": "interview-me", "skill": "agent-skills:interview-me", "invocacion": "nativa", "fuente": "github:addyosmani/agent-skills/skills/interview-me", "fases": ["Define"], "rol": "principal", "proposito": "Entrevista guiada para levantar requisitos y reglas de negocio", "estado": "por_configurar", "ruta_local": null},
+    {"id": "as-idea-refine", "paquete": "agent-skills", "nombre": "idea-refine", "skill": "agent-skills:idea-refine", "invocacion": "nativa", "fuente": "github:addyosmani/agent-skills/skills/idea-refine", "fases": ["Define"], "rol": "complementario", "proposito": "Refinar visión y propuesta de valor antes de escribir historias", "estado": "por_configurar", "ruta_local": null},
+    {"id": "as-spec-driven-development", "paquete": "agent-skills", "nombre": "spec-driven-development", "skill": "agent-skills:spec-driven-development", "invocacion": "nativa", "fuente": "github:addyosmani/agent-skills/skills/spec-driven-development", "fases": ["Define"], "rol": "principal", "proposito": "Especificación estructurada de la historia y criterios de aceptación (G1)", "estado": "por_configurar", "ruta_local": null},
+    {"id": "as-planning-and-task-breakdown", "paquete": "agent-skills", "nombre": "planning-and-task-breakdown", "skill": "agent-skills:planning-and-task-breakdown", "invocacion": "nativa", "fuente": "github:addyosmani/agent-skills/skills/planning-and-task-breakdown", "fases": ["Plan"], "rol": "principal", "proposito": "Desglose de tareas y estimación del sprint y del plan técnico", "estado": "por_configurar", "ruta_local": null},
+    {"id": "as-constraint-driven-development", "paquete": "agent-skills", "nombre": "constraint-driven-development", "skill": "agent-skills:constraint-driven-development", "invocacion": "nativa", "fuente": "github:addyosmani/agent-skills/skills/constraint-driven-development", "fases": ["Plan"], "rol": "principal", "proposito": "Planificación con restricciones técnicas y de negocio (CONSTRAINTS.md)", "estado": "por_configurar", "ruta_local": null},
+    {"id": "dwi-diseno-web-integral", "paquete": "diseno-web-integral", "nombre": "diseno-web-integral", "skill": "diseno-web-integral", "invocacion": "nativa", "fuente": null, "fases": ["Design", "Verify"], "rol": "principal", "proposito": "Mockup y diseño UI de punta a punta con validación medida; su aprobación final alimenta la evidencia de G3", "estado": "por_configurar", "ruta_local": null},
+    {"id": "as-frontend-ui-engineering", "paquete": "agent-skills", "nombre": "frontend-ui-engineering", "skill": "agent-skills:frontend-ui-engineering", "invocacion": "nativa", "fuente": "github:addyosmani/agent-skills/skills/frontend-ui-engineering", "fases": ["Design", "Build"], "rol": "complementario", "proposito": "Ingeniería de componentes UI a partir del mockup aprobado", "estado": "por_configurar", "ruta_local": null},
+    {"id": "as-api-and-interface-design", "paquete": "agent-skills", "nombre": "api-and-interface-design", "skill": "agent-skills:api-and-interface-design", "invocacion": "nativa", "fuente": "github:addyosmani/agent-skills/skills/api-and-interface-design", "fases": ["Design"], "rol": "principal", "proposito": "Diseño de APIs y contratos de integración del plan técnico", "estado": "por_configurar", "ruta_local": null},
+    {"id": "ecc-api-design", "paquete": "ecc", "nombre": "api-design", "skill": "ecc:api-design", "invocacion": "nativa", "fuente": "github:affaan-m/ECC/skills/api-design", "fases": ["Design"], "rol": "complementario", "proposito": "Patrones REST: nombres, códigos, paginación, errores, versionado", "estado": "por_configurar", "ruta_local": null},
+    {"id": "as-documentation-and-adrs", "paquete": "agent-skills", "nombre": "documentation-and-adrs", "skill": "agent-skills:documentation-and-adrs", "invocacion": "nativa", "fuente": "github:addyosmani/agent-skills/skills/documentation-and-adrs", "fases": ["Design", "Ship"], "rol": "principal", "proposito": "ADR y documentación técnica y operativa", "estado": "por_configurar", "ruta_local": null},
+    {"id": "ecc-architecture-decision-records", "paquete": "ecc", "nombre": "architecture-decision-records", "skill": "ecc:architecture-decision-records", "invocacion": "nativa", "fuente": "github:affaan-m/ECC/skills/architecture-decision-records", "fases": ["Design"], "rol": "complementario", "proposito": "ADR numerados con alternativas y consecuencias", "estado": "por_configurar", "ruta_local": null},
+    {"id": "as-incremental-implementation", "paquete": "agent-skills", "nombre": "incremental-implementation", "skill": "agent-skills:incremental-implementation", "invocacion": "nativa", "fuente": "github:addyosmani/agent-skills/skills/incremental-implementation", "fases": ["Build"], "rol": "principal", "proposito": "Microciclo de vibecoding controlado: incrementos pequeños y verificables", "estado": "por_configurar", "ruta_local": null},
+    {"id": "as-test-driven-development", "paquete": "agent-skills", "nombre": "test-driven-development", "skill": "agent-skills:test-driven-development", "invocacion": "nativa", "fuente": "github:addyosmani/agent-skills/skills/test-driven-development", "fases": ["Build"], "rol": "principal", "proposito": "Desarrollo guiado por pruebas automatizadas", "estado": "por_configurar", "ruta_local": null},
+    {"id": "ecc-tdd-workflow", "paquete": "ecc", "nombre": "tdd-workflow", "skill": "ecc:tdd-workflow", "invocacion": "nativa", "fuente": "github:affaan-m/ECC/skills/tdd-workflow", "fases": ["Build"], "rol": "complementario", "proposito": "TDD con meta de cobertura ≥80% en unitarias, integración y E2E", "estado": "por_configurar", "ruta_local": null},
+    {"id": "ecc-backend-patterns", "paquete": "ecc", "nombre": "backend-patterns", "skill": "ecc:backend-patterns", "invocacion": "nativa", "fuente": "github:affaan-m/ECC/skills/backend-patterns", "fases": ["Build"], "rol": "complementario", "proposito": "Patrones backend Node.js/Express/Next.js (si el stack aplica)", "estado": "por_configurar", "ruta_local": null},
+    {"id": "ecc-frontend-patterns", "paquete": "ecc", "nombre": "frontend-patterns", "skill": "ecc:frontend-patterns", "invocacion": "nativa", "fuente": "github:affaan-m/ECC/skills/frontend-patterns", "fases": ["Build"], "rol": "complementario", "proposito": "Patrones React/Next.js, estado y rendimiento (si el stack aplica)", "estado": "por_configurar", "ruta_local": null},
+    {"id": "as-debugging-and-error-recovery", "paquete": "agent-skills", "nombre": "debugging-and-error-recovery", "skill": "agent-skills:debugging-and-error-recovery", "invocacion": "nativa", "fuente": "github:addyosmani/agent-skills/skills/debugging-and-error-recovery", "fases": ["Verify"], "rol": "principal", "proposito": "Diagnóstico y resolución de errores", "estado": "por_configurar", "ruta_local": null},
+    {"id": "ecc-verification-loop", "paquete": "ecc", "nombre": "verification-loop", "skill": "ecc:verification-loop", "invocacion": "nativa", "fuente": "github:affaan-m/ECC/skills/verification-loop", "fases": ["Verify"], "rol": "principal", "proposito": "Verificación en seis pasos (build, tipos, lint, pruebas, seguridad, diff) con informe PASS/FAIL para la evidencia de G4", "estado": "por_configurar", "ruta_local": null},
+    {"id": "as-browser-testing-with-devtools", "paquete": "agent-skills", "nombre": "browser-testing-with-devtools", "skill": "agent-skills:browser-testing-with-devtools", "invocacion": "nativa", "fuente": "github:addyosmani/agent-skills/skills/browser-testing-with-devtools", "fases": ["Verify"], "rol": "complementario", "proposito": "Pruebas en navegador con DevTools", "estado": "por_configurar", "ruta_local": null},
+    {"id": "ecc-e2e-testing", "paquete": "ecc", "nombre": "e2e-testing", "skill": "ecc:e2e-testing", "invocacion": "nativa", "fuente": "github:affaan-m/ECC/skills/e2e-testing", "fases": ["Verify"], "rol": "complementario", "proposito": "Pruebas E2E con Playwright y Page Objects", "estado": "por_configurar", "ruta_local": null},
+    {"id": "ecc-ai-regression-testing", "paquete": "ecc", "nombre": "ai-regression-testing", "skill": "ecc:ai-regression-testing", "invocacion": "nativa", "fuente": "github:affaan-m/ECC/skills/ai-regression-testing", "fases": ["Verify"], "rol": "complementario", "proposito": "Regresión orientada a puntos ciegos del código generado con IA", "estado": "por_configurar", "ruta_local": null},
+    {"id": "ecc-accessibility", "paquete": "ecc", "nombre": "accessibility", "skill": "ecc:accessibility", "invocacion": "nativa", "fuente": "github:affaan-m/ECC/skills/accessibility", "fases": ["Design", "Verify"], "rol": "complementario", "proposito": "Auditoría WCAG 2.2 AA (estados, foco, contraste) para G3 y G4", "estado": "por_configurar", "ruta_local": null},
+    {"id": "as-performance-optimization", "paquete": "agent-skills", "nombre": "performance-optimization", "skill": "agent-skills:performance-optimization", "invocacion": "nativa", "fuente": "github:addyosmani/agent-skills/skills/performance-optimization", "fases": ["Verify"], "rol": "complementario", "proposito": "Medición y optimización de rendimiento", "estado": "por_configurar", "ruta_local": null},
+    {"id": "as-code-review-and-quality", "paquete": "agent-skills", "nombre": "code-review-and-quality", "skill": "agent-skills:code-review-and-quality", "invocacion": "nativa", "fuente": "github:addyosmani/agent-skills/skills/code-review-and-quality", "fases": ["Review"], "rol": "principal", "proposito": "Revisión de código y buenas prácticas (PR de G4)", "estado": "por_configurar", "ruta_local": null},
+    {"id": "as-code-simplification", "paquete": "agent-skills", "nombre": "code-simplification", "skill": "agent-skills:code-simplification", "invocacion": "nativa", "fuente": "github:addyosmani/agent-skills/skills/code-simplification", "fases": ["Review"], "rol": "complementario", "proposito": "Simplificación y reducción de deuda técnica", "estado": "por_configurar", "ruta_local": null},
+    {"id": "as-security-and-hardening", "paquete": "agent-skills", "nombre": "security-and-hardening", "skill": "agent-skills:security-and-hardening", "invocacion": "nativa", "fuente": "github:addyosmani/agent-skills/skills/security-and-hardening", "fases": ["Review"], "rol": "principal", "proposito": "Endurecimiento y análisis de seguridad (SAST/DAST)", "estado": "por_configurar", "ruta_local": null},
+    {"id": "ecc-security-review", "paquete": "ecc", "nombre": "security-review", "skill": "ecc:security-review", "invocacion": "nativa", "fuente": "github:affaan-m/ECC/skills/security-review", "fases": ["Review"], "rol": "complementario", "proposito": "Checklist de seguridad para autenticación, entradas, secretos, APIs y datos sensibles", "estado": "por_configurar", "ruta_local": null},
+    {"id": "as-ci-cd-and-automation", "paquete": "agent-skills", "nombre": "ci-cd-and-automation", "skill": "agent-skills:ci-cd-and-automation", "invocacion": "nativa", "fuente": "github:addyosmani/agent-skills/skills/ci-cd-and-automation", "fases": ["Ship"], "rol": "principal", "proposito": "Pipeline CI/CD y automatización de despliegue", "estado": "por_configurar", "ruta_local": null},
+    {"id": "ecc-deployment-patterns", "paquete": "ecc", "nombre": "deployment-patterns", "skill": "ecc:deployment-patterns", "invocacion": "nativa", "fuente": "github:affaan-m/ECC/skills/deployment-patterns", "fases": ["Ship"], "rol": "complementario", "proposito": "Health checks, rollback y checklist de producción (G6)", "estado": "por_configurar", "ruta_local": null},
+    {"id": "as-git-workflow-and-versioning", "paquete": "agent-skills", "nombre": "git-workflow-and-versioning", "skill": "agent-skills:git-workflow-and-versioning", "invocacion": "nativa", "fuente": "github:addyosmani/agent-skills/skills/git-workflow-and-versioning", "fases": ["Plan", "Ship"], "rol": "complementario", "proposito": "Ramas, commits y versionado semántico", "estado": "por_configurar", "ruta_local": null},
+    {"id": "as-observability-and-instrumentation", "paquete": "agent-skills", "nombre": "observability-and-instrumentation", "skill": "agent-skills:observability-and-instrumentation", "invocacion": "nativa", "fuente": "github:addyosmani/agent-skills/skills/observability-and-instrumentation", "fases": ["Ship"], "rol": "complementario", "proposito": "Monitoreo, logs y alertas exigidos por G6", "estado": "por_configurar", "ruta_local": null},
+    {"id": "as-shipping-and-launch", "paquete": "agent-skills", "nombre": "shipping-and-launch", "skill": "agent-skills:shipping-and-launch", "invocacion": "nativa", "fuente": "github:addyosmani/agent-skills/skills/shipping-and-launch", "fases": ["Ship"], "rol": "principal", "proposito": "Gestión de versión y release", "estado": "por_configurar", "ruta_local": null},
+    {"id": "codex-revision-cruzada", "paquete": "codex", "nombre": "codex-companion", "invocacion": "script", "script": "scripts/codex-companion.mjs", "solo_harness": "claude", "fuente": null, "fases": ["Define", "Plan", "Verify", "Review", "Ship"], "rol": "revisor", "proposito": "Revisión cruzada de Codex antes de G1, del DoR, de G4 y de G6: python sai.py xreview <ID> --point <punto>", "estado": "por_configurar", "ruta_local": null},
+    {"id": "ecc-brownfield-retrospective", "paquete": "ecc", "nombre": "brownfield-retrospective", "skill": "ecc:brownfield-retrospective", "invocacion": "nativa", "fuente": "github:affaan-m/ECC/skills/brownfield-retrospective", "fases": ["Define"], "rol": "complementario", "proposito": "Auditoría de código existente en Sprint 0 (modo existente): registro de brechas", "estado": "por_configurar", "ruta_local": null}
+  ],
+  "mcp": [],
+  "rag": []
+}
